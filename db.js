@@ -6,10 +6,10 @@ let games = [
 ]
 
 let authors = [
-    {id: '1', name: 'ABC', verified: true},
-    {id: '2', name: 'HNB', verified: true},
-    {id: '3', name: 'HIJ', verified: false},
-    {id: '4', name: 'EFG', verified: false},
+    {id: '1', name: 'ABC', verified: true, game_id: '1'},
+    {id: '2', name: 'HNB', verified: true, game_id: '2'},
+    {id: '3', name: 'HIJ', verified: false, game_id: '3'},
+    {id: '4', name: 'EFG', verified: false, game_id: '4'},
 ]
 
 let reviews = [

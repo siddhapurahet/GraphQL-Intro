@@ -3,6 +3,8 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { typeDefs } from './schema.js';
 import db from './db.js'
 
+let length = db.games.length;
+
 const resolvers = {
     Query: {
         games() {
@@ -27,11 +29,38 @@ const resolvers = {
     Game: {
         reviews(parent) {
             return db.reviews.filter((singleid) => singleid.game_id === parent.id)
+        },
+        authors(parent) {
+            return db.authors.filter((singleid) => singleid.game_id === parent.id)
         }
     },
     Author: {
         review(parent) {
             return db.reviews.filter((singleid) => singleid.author_id === parent.id)
+        }
+    },
+    Mutation: {
+        deleteGame(_, args) {
+            db.games = db.games.filter((singleid) => singleid.id !== args.id)
+            return db.games;
+        },
+        addGame(_, args) {
+            let newGameObject = {
+                ...args.game,
+                id: length + 1
+            }
+
+            db.games.push(newGameObject);
+            return newGameObject
+        },
+        updateGame(_, args) {
+            db.games = db.games.map((singleObj) => {
+                if(singleObj.id === args.id) {
+                    return {...singleObj, ...args.edit}
+                }
+                return singleObj
+            })
+            return db.games.find((editedObject) => editedObject.id === args.id)
         }
     }
 }

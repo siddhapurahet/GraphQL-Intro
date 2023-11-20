@@ -6,6 +6,7 @@ export const typeDefs = gql`
         title: String!
         platform: [String!]!
         reviews: [Review!]   #this is used to connect Game with reviews table
+        authors: [Author!]
     
     }
     type Review {
@@ -28,6 +29,22 @@ export const typeDefs = gql`
         author(id: ID!): Author
         games: [Game]
         game(id: ID!): Game
+    }
+
+    type Mutation {
+        deleteGame(id: ID!): [Game]
+        addGame(game: addGameValues): Game
+        updateGame(id: ID!, edit: editGameValues): Game
+    }
+
+    input addGameValues {
+        title: String!,
+        platform: [String!]!
+    }
+
+    input editGameValues {
+        title: String,
+        platform: [String!]
     }
 `
 
